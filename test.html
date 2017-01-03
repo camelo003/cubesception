@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>Teste ThreeJS</title>
+    <style>
+      body {
+        background-color: #F3904F;
+        margin: 0;
+        overflow: hidden;
+      }
+      canvas {
+        position: absolute;
+        top:0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id=myCanvas></canvas>
+    <script src="three.js-master/build/three.min.js"></script>
+    <script>
+      var renderer = new THREE.WebGLRenderer({canvas: document.getElementById('myCanvas'), antialias: false});
+      renderer.setClearColor(0x3B4371);
+      renderer.setSize(320,240);
+
+      var camera = new THREE.PerspectiveCamera(35,320/240,0.1,30);
+      camera.position.z = 3;
+
+      var scene = new THREE.Scene();
+
+      var refGeometry = new THREE.BoxGeometry(1,1,1);
+      var refMaterial = new THREE.MeshBasicMaterial({color: 0xF3904F, wireframe: true});
+
+      var mesh = new THREE.Mesh(refGeometry,refMaterial);
+      mesh.rotation.y = 45 * Math.PI / 180;
+
+      var group = new THREE.Group();
+      group.add(mesh);
+      group.rotation.x =  45 * Math.PI / 180;
+
+      var masterGroup = new THREE.Group();
+      masterGroup.add(group);
+
+      scene.add(masterGroup);
+
+      animate();
+
+      function animate(){
+        requestAnimationFrame(animate);
+
+        //masterGroup.rotation.y = Date.now() * 0.001;
+
+        renderer.render(scene,camera);
+      }
+
+    </script>
+  </body>
+</html>
